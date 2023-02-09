@@ -1216,13 +1216,25 @@ function files-swap-words {
 
 #MY-ZSHRC
 function zshrc-save(){
+  if [ -z "$1" ]; then 
+    echo "
+    This function will copy the .zshrc and then push to github my-zshrc repo. 
+    You need to add a message for the commit to make it work
+    Ex.: zshrc-save 'adding new function'
+    " 
+    return 1
+  fi
+  currentPath=$(pwd)
   cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   rm -rf my-zshrc-scripts.sh
   cd ~/
   cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   mv .zshrc my-zshrc-scripts.sh
-  
+  git add .
+  git commit -m "chore(.zshrc): $1"
+  git push
+  cd $currentPath
 }
 
 #PATHS
@@ -1334,7 +1346,7 @@ function format {
 
 #GIT
 function git-add-origin(){
-  git remote add origin git@github.com:ggiacomini2012/$1.git
+  git remote add origin git@github.com:ggiacomini2012/"$1".git
 }
 
 function git-delete-all-commits() {
