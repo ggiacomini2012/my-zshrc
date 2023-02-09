@@ -218,6 +218,10 @@ npx nx generate @nrwl/react:app frontend --style=css --routing --bundler='vite'
 pnpm i -D eslint-config-airbnb  
 
 echo '\nConfiguring package.json scripts...\n'
+npm pkg set scripts.front="nx run frontend:serve",
+npm pkg set scripts.front-test="nx run frontend:test",
+npm pkg set scripts.back="nx run backend:serve",
+npm pkg set scripts.back-test="nx run backend:test",
 npm pkg set scripts.prepare="husky install"
 npm pkg set scripts.commit="git-cz"
 npm pkg set scripts.lint="eslint --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .tsx"
@@ -247,7 +251,7 @@ rm -rf public
 cd -
 echo '\nPreparing and installing frontend addicional dependencies...\n'
 pnpm i  @auth0/auth0-react jwt-decode
-pnpm -D cypress-localstorage-commands
+pnpm i -D cypress-localstorage-commands
 
 #_BACK #REMOVE
 echo '\nPreparing and refactoring backend directory...\n'
@@ -266,7 +270,7 @@ insert-in-file '"overrides"' '"rules": {
 cd -
 echo '\nPreparing and installing backend addicional dependencies...\n'
 pnpm i @prisma/client argon2 cors dotenv express-rescue joi jsonwebtoken shelljs uuid
-pnpm i  -D @types/cors @types/jsonwebtoken @types/shelljs @types/supertest @types/uuid prisma supertest 
+pnpm i -D @types/cors @types/jsonwebtoken @types/shelljs @types/supertest @types/uuid prisma supertest 
 
 echo '\nDeleting .vscode directory...\n'
 rm -rf .vscode
