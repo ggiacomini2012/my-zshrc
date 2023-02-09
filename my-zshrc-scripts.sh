@@ -1797,15 +1797,6 @@ alias python-lint="python3 -m flake8"
 function python-test-function() { python3 -m pytest -k $1 }
 function python-test() { python3 -m pytest tests/$1*.py }
 
-function bob(){
- variable=$1
-  if [ -n "$variable" ] && [ "$(type -t $variable)" == "string" ]
-  then
-      echo $variable
-      echo $1
-  fi
-}
-
 #### final ####
 
 # Fig post block. Keep at the bottom of this file.
