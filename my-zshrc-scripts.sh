@@ -229,6 +229,7 @@ npm pkg set scripts.test:cover="vitest --coverage --no-watch"
 npm pkg set scripts.test:cypress="cypress run"
 npm pkg set scripts.test:cypress:OPNE="cypress open"
 
+#_FRONT #REMOVE
 echo '\nPreparing and refactoring frontend directory...\n'
 cd ~/Desktop/trabalho-e-estudo/portfolio/morgana/apps/frontend
 insert-in-file '"overrides"' '"parserOptions": { "project": ["apps\/frontend\/tsconfig.*?.json"] },' .eslintrc.json
@@ -245,7 +246,10 @@ perl -0777 -i -pe 's/<link rel="icon" type="image\/x-icon" href="\/favicon.ico" 
 rm -rf public
 cd -
 echo '\nPreparing and installing frontend addicional dependencies...\n'
+pnpm i  @auth0/auth0-react jwt-decode
+pnpm -D cypress-localstorage-commands
 
+#_BACK #REMOVE
 echo '\nPreparing and refactoring backend directory...\n'
 cd ~/Desktop/trabalho-e-estudo/portfolio/morgana/apps/backend
 insert-in-file '"overrides"' '"parserOptions": { "project": ["apps\/backend\/tsconfig.*?.json"] },' .eslintrc.json
@@ -261,9 +265,8 @@ insert-in-file '"overrides"' '"rules": {
   },' .eslintrc.json
 cd -
 echo '\nPreparing and installing backend addicional dependencies...\n'
-
-# echo '\nDeleting .gitkeep files...\n'
-# find . -name '*.gitkeep' -type f -delete
+pnpm i @prisma/client argon2 cors dotenv express-rescue joi jsonwebtoken shelljs uuid
+pnpm i  -D @types/cors @types/jsonwebtoken @types/shelljs @types/supertest @types/uuid prisma supertest 
 
 echo '\nDeleting .vscode directory...\n'
 rm -rf .vscode
@@ -311,6 +314,7 @@ jobs:
       number-of-agents: 3
 "
 
+#_DOCKER #REMOVE
 echo '\nDockerization...\n'
 echo > apps/frontend/Dockerfile "FROM node:16-alpine
 
@@ -449,7 +453,7 @@ pnpm i -D @testing-library/react @testing-library/jest-dom @testing-library/user
 pnpm i -D @open-wc/testing
 
 echo '\nInicialization completed'
-#GLOB
+#GLOB #REMOVE
 }
 
 #START-FRONTEND-PROJECT-REACT-TS-SINGLETON
@@ -1250,6 +1254,30 @@ function files-swap-words {
 }
 
 #MY-ZSHRC
+function zshrc-status() {
+    currentPath=$(pwd)
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  rm -rf my-zshrc-scripts.sh
+  cd ~/
+  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  mv .zshrc my-zshrc-scripts.sh
+  git status
+  cd $currentPath
+}
+
+function zshrc-diff() {
+    currentPath=$(pwd)
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  rm -rf my-zshrc-scripts.sh
+  cd ~/
+  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  mv .zshrc my-zshrc-scripts.sh
+  git diff
+  cd $currentPath
+}
+
 function zshrc-save(){
   if [ -z "$1" ]; then 
     echo "
@@ -1270,6 +1298,10 @@ function zshrc-save(){
   git commit -m "chore(.zshrc): $1"
   git push
   cd $currentPath
+}
+
+function zshrc-push(){
+  zshrc-save $1
 }
 
 #PATHS
@@ -1770,7 +1802,7 @@ function bob(){
   fi
 }
 
-#### final ###
+#### final ####
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
