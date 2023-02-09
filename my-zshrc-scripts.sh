@@ -1212,6 +1212,19 @@ function t(){
   npm run test $1
 }
 
+
+#MYSQL
+# -- Drop all databases
+# -- Prevent truncation
+# SET SESSION group_concat_max_len = 1000000;
+
+# SELECT GROUP_CONCAT(
+#   DISTINCT CONCAT('DROP DATABASE ', table_schema, ';')
+#   SEPARATOR ''
+# )
+# FROM information_schema.tables
+# WHERE table_schema NOT IN ('mysql', 'information_schema');
+
 function myslq-call(){
   mysql -u root -p12121212 -h 127.0.0.1 -P 3306 -e
 }
@@ -1258,6 +1271,18 @@ function files-swap-words {
 }
 
 #MY-ZSHRC
+function zshrc-see-changes() {
+  currentPath=$(pwd)
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  rm -rf my-zshrc-scripts.sh
+  cd ~/
+  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
+  mv .zshrc my-zshrc-scripts.sh
+  code .
+  cd $currentPath
+}
+
 function zshrc-status() {
     currentPath=$(pwd)
   cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
