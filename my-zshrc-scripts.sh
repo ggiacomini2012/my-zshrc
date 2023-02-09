@@ -902,6 +902,41 @@ alias vscode-icon-add="code -a ~/.vscode/extensions/pkief.material-icon-theme-4.
 alias vscode-icon-add-folder="code --goto ~/.vscode/extensions/pkief.material-icon-theme-4.15.0/dist/material-icons.json:2187"
 alias vscode-icon-add-folder-expanded="code --goto ~/.vscode/extensions/pkief.material-icon-theme-4.15.0/dist/material-icons.json:2747"
 
+function vscode-color-window() {
+  mkdir .vscode
+  cd .vscode
+  echo >> settings.json '{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#302241",
+    "titleBar.activeBackground": "#302241",
+    "titleBar.activeForeground": "#ffee00",
+    //  "activityBar.background": "#000000",
+    "activityBar.border": "#000000",
+    "activityBar.foreground": "#ffee00",
+    // "badge.background": "#000000",
+    // "badge.foreground": "#000000",
+    // "contrastActiveBorder": "#000000",
+    // "contrastBorder": "#302241",
+    "focusBorder": "#4d9c3fbe",
+    "list.activeSelectionBackground": "#000000",
+    // "list.activeSelectionForeground": "#000000",
+    "list.focusBackground": "#000000",
+    "list.focusForeground": "#000000",
+    "list.hoverBackground": "#000000",
+    // "list.hoverForeground": "#000000",
+    "statusBar.background": "#000000",
+    // "statusBar.foreground": "#000000",
+    // "titleBar.activeBackground": "#000000",
+    // "titleBar.activeForeground": "#000000",
+    // "titleBar.inactiveBackground": "#000000",
+    // "titleBar.inactiveForeground": "#000000",
+    "widget.shadow": "#000000"
+  }
+}
+  '
+  cd -
+}
+
 # echo $PATH | tr ":" "\n" |& tee -a bob  # to save the path history in bob
 
 #FILE
