@@ -207,6 +207,14 @@ function  start-study(){
 
 #MONOREPO-NX
 function monorepo-nx() {
+
+function insert-in-file-monorepo() {
+  getPartOfTheText=$1
+  addNewText=$2
+  file=$3
+  perl -0777 -i -pe 's/'$1'/'$2'\n  '$1'/' $3
+}
+
 npx create-nx-workspace $1 --preset=apps --cli=nx --packageManager pnpm --nx-cloud=true
 cd $1
 rm -rf tools
@@ -236,8 +244,8 @@ npm pkg set scripts.test:cypress:OPNE="cypress open"
 #_FRONT #REMOVE
 echo '\nPreparing and refactoring frontend directory...\n'
 cd ~/Desktop/trabalho-e-estudo/portfolio/morgana/apps/frontend
-insert-in-file '"overrides"' '"parserOptions": { "project": ["apps\/frontend\/tsconfig.*?.json"] },' .eslintrc.json
-insert-in-file '"overrides"' '"rules": {                       
+insert-in-file-monorepo '"overrides"' '"parserOptions": { "project": ["apps\/frontend\/tsconfig.*?.json"] },' .eslintrc.json
+insert-in-file-monorepo '"overrides"' '"rules": {                       
     "react\/react-in-jsx-scope": "off",
     "semi": ["error", "always"],
     "\@typescript-eslint\/semi": "off",
@@ -245,7 +253,12 @@ insert-in-file '"overrides"' '"rules": {
     "\@typescript-eslint\/explicit-function-return-type": "off",
     "no-multiple-empty-lines": "error"
   },' .eslintrc.json
-insert-in-file '"vitest"' '"\@testing-library\/jest-dom",' tsconfig.json
+insert-in-file-monorepo '"vitest"' '"\@testing-library\/jest-dom",' tsconfig.json
+insert-in-file-monorepo '  "jsx"' '  "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],' tsconfig.json
 perl -0777 -i -pe 's/<link rel="icon" type="image\/x-icon" href="\/favicon.ico" \/>//g' index.html
 rm -rf public
 cd -
@@ -256,8 +269,8 @@ pnpm i -D cypress-localstorage-commands
 #_BACK #REMOVE
 echo '\nPreparing and refactoring backend directory...\n'
 cd ~/Desktop/trabalho-e-estudo/portfolio/morgana/apps/backend
-insert-in-file '"overrides"' '"parserOptions": { "project": ["apps\/backend\/tsconfig.*?.json"] },' .eslintrc.json
-insert-in-file '"overrides"' '"rules": {                       
+insert-in-file-monorepo '"overrides"' '"parserOptions": { "project": ["apps\/backend\/tsconfig.*?.json"] },' .eslintrc.json
+insert-in-file-monorepo '"overrides"' '"rules": {                       
     "react\/react-in-jsx-scope": "off",
     "semi": ["error", "always"],
     "\@typescript-eslint\/semi": "off",
@@ -351,7 +364,7 @@ pnpm i @reduxjs/toolkit
 pnpm i react-redux
 
 echo '\nAdding rules to .prettierrc file...\n'
-insert-in-file '"singleQuote"' '"tabWidth": 2,  
+insert-in-file-monorepo '"singleQuote"' '"tabWidth": 2,  
   "trailingComma": "all",
   "printWidth": 100,' .prettierrc
 
@@ -361,7 +374,7 @@ pnpm -D i @commitlint/config-conventional @commitlint/cli
 pnpm i -D lint-staged commitizen husky prettier
 
 echo '\nAdding commitzen configuration path o package.json "config: {}"...\n'
-insert-in-file '"private"' '"config": {     
+insert-in-file-monorepo '"private"' '"config": {     
     "commitizen": {
       "path": ".\/node_modules\/cz-conventional-changelog"
     }
@@ -926,14 +939,14 @@ function vscode-color-window() {
     // "contrastActiveBorder": "#000000",
     // "contrastBorder": "#302241",
     "focusBorder": "#4d9c3fbe",
-    "list.activeSelectionBackground": "#000000",
+    // "list.activeSelectionBackground": "#000000",
     // "list.activeSelectionForeground": "#000000",
     "list.focusBackground": "#000000",
-    "list.focusForeground": "#000000",
+    "list.focusForeground": "#fafafa",
     "list.hoverBackground": "#000000",
     // "list.hoverForeground": "#000000",
-    "statusBar.background": "#000000",
-    // "statusBar.foreground": "#000000",
+    "statusBar.background": "#445aec",
+    "statusBar.foreground": "#fafafa",
     // "titleBar.activeBackground": "#000000",
     // "titleBar.activeForeground": "#000000",
     // "titleBar.inactiveBackground": "#000000",
@@ -953,20 +966,6 @@ function insert-in-file() {
   addNewText=$2
   file=$3
   perl -0777 -i -pe 's/'$1'/'$2'\n  '$1'/' $3
-  # for debbug:
-  # echo "
-  # insert-in-file function:
-  #   variables:
-  #     getPartOfTheText:  $1
-  #     addNewText:        $2
-  #     file:              $3
-
-  #   mounting script:
-  #     perl -0777 -i -pe 's/getPartOfTheText/addNewText\n  getPartOfTheText/' file
-
-  #   final script:
-  #     perl -0777 -i -pe 's/"$getPartOfTheText"/"$addNewText"\n  "$getPartOfTheText"/' "$file"
-  # "
 }
 
 #COPY FROM TERMINAL
