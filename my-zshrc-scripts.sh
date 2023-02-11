@@ -192,7 +192,7 @@ function mac-log(){
 
 #STUDY #CODING #START
 function  study(){
-  code -r /Users/guilherme/Desktop/trabalho-e-estudo/portifolio/portifolio-web
+  code /Users/guilherme/Desktop/trabalho-e-estudo/portifolio/morgana
   open /Users/guilherme/Desktop/
   # open https://excalidraw.com/
   open https://www.notion.so/
