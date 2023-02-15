@@ -1572,6 +1572,15 @@ function mac(){osascript ./$1.applescript}
 #DOCKER
 function docker-start(){open -g -a docker}
 
+function docker-mysql() {
+  docker run -dit
+  --name db
+  -e MYSQL_ROOT_PASSWORD=root
+  -v ~/mysql_data:/var/lib/mysql
+  -p 3307:33061
+  mysql
+}
+
 #--
 
 function new-file(){
@@ -1700,40 +1709,7 @@ function start-app(){
   start-front
   start-back
 }
-function blint(){
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/back-end
-  npm run lint
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
-function blint-styles(){
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/back-end
-  npm run lint:styles
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
-function blint-fix() {
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/back-end
-  npm run lint -- --fix
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
-function flint(){
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/front-end
-  npm run lint
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
-function flint-styles(){
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/front-end
-  npm run lint:styles
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
-function flint-fix() {
-  cd ~/Desktop/trabalho-e-estudo/projetos/delivery-app/front-end
-  npm run lint -- --fix
-  ~/Desktop/trabalho-e-estudo/projetos/delivery-app
-}
 
-function t2(){
-  npm run test:dev $1
-}
 function t(){
   pkill -f pm2 && killall node
   npm run test $1
