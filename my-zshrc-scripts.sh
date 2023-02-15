@@ -1270,38 +1270,32 @@ function files-swap-words {
 }
 
 #MY-ZSHRC
-function zshrc-see-changes() {
-  currentPath=$(pwd)
+function zshrc-refresh() {
   cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   rm -rf my-zshrc-scripts.sh
   cd ~/
   cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
   mv .zshrc my-zshrc-scripts.sh
+}
+
+function zshrc-see-changes() {
+  currentPath=$(pwd)
+  zshrc-refresh
   code .
   cd $currentPath
 }
 
 function zshrc-status() {
-    currentPath=$(pwd)
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  rm -rf my-zshrc-scripts.sh
-  cd ~/
-  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  mv .zshrc my-zshrc-scripts.sh
+  currentPath=$(pwd)
+  zshrc-refresh
   git status
   cd $currentPath
 }
 
 function zshrc-diff() {
-    currentPath=$(pwd)
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  rm -rf my-zshrc-scripts.sh
-  cd ~/
-  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  mv .zshrc my-zshrc-scripts.sh
+  currentPath=$(pwd)
+  zshrc-refresh
   git diff
   cd $currentPath
 }
@@ -1316,12 +1310,7 @@ function zshrc-save(){
     return 1
   fi
   currentPath=$(pwd)
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  rm -rf my-zshrc-scripts.sh
-  cd ~/
-  cp .zshrc /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/my-zshrc/
-  mv .zshrc my-zshrc-scripts.sh
+  zshrc-refresh
   git add .
   git commit -m "chore(.zshrc): $1"
   git push
