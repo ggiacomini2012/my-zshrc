@@ -937,6 +937,10 @@ function vscode-color-window() {
   mkdir .vscode
   cd .vscode
   echo >> settings.json '{
+  // "editor.wordWrap": "wordWrapColumn",
+  // "editor.wordWrapColumn": 100,
+  // "editor.fontSize": 16,
+  // "editor.lineHeight": 30,
   "workbench.colorCustomizations": {
     "activityBar.background": "#302241",
     "titleBar.activeBackground": "#302241",
@@ -961,7 +965,8 @@ function vscode-color-window() {
     // "titleBar.activeForeground": "#000000",
     // "titleBar.inactiveBackground": "#000000",
     // "titleBar.inactiveForeground": "#000000",
-    "widget.shadow": "#000000"
+    "widget.shadow": "#000000",
+    // "editor.foreground": "#819f82f5" 
   }
 }
   '
