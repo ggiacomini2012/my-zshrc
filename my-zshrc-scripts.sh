@@ -217,11 +217,20 @@ function insert-in-file-monorepo() {
 
 npx create-nx-workspace $1 --preset=apps --cli=nx --packageManager pnpm --nx-cloud=true
 cd $1
-rm -rf tools
 mv libs global
-pnpm i -D @nrwl/jest @nrwl/cypress
-pnpm i @nrwl/vite  @nrwl/react-native  @nrwl/react @nrwl/express
-npx nx generate @nrwl/node:app backend --framework=express 
+pnpm i -D @nrwl/jest @nrwl/cypress @nrwl/cli 
+pnpm i @nrwl/vite  @nrwl/react-native  @nrwl/react
+
+echo '\nPreparing and installing backend addicional dependencies...\n'
+pnpm i @prisma/client argon2 cors dotenv express-rescue joi jsonwebtoken shelljs uuid
+pnpm i -D @types/cors @types/jsonwebtoken @types/shelljs @types/supertest @types/uuid prisma supertest @nx-tools/nx-prisma
+pnpm i -D @nrwl/express @nrwl/webpack @nx-tools/nx-prismanx-plugin-devkit nx-plugin-prisma nx-plugin-workspace
+
+echo '\nPreparing and installing frontend addicional dependencies...\n'
+pnpm i  @auth0/auth0-react jwt-decode
+pnpm i -D cypress-localstorage-commands
+
+pnpm exec nx generate @nrwl/express:application backend --no-interactive
 npx nx generate @nrwl/react:app frontend --style=css --routing --bundler='vite'   
 pnpm i -D eslint-config-airbnb  
 
@@ -262,9 +271,6 @@ insert-in-file-monorepo '  "jsx"' '  "lib": [
 perl -0777 -i -pe 's/<link rel="icon" type="image\/x-icon" href="\/favicon.ico" \/>//g' index.html
 rm -rf public
 cd -
-echo '\nPreparing and installing frontend addicional dependencies...\n'
-pnpm i  @auth0/auth0-react jwt-decode
-pnpm i -D cypress-localstorage-commands
 
 #_BACK #REMOVE
 echo '\nPreparing and refactoring backend directory...\n'
@@ -280,10 +286,14 @@ insert-in-file-monorepo '"overrides"' '"rules": {
     "\@typescript-eslint\/strict-boolean-expressions": "off",
     "no-multiple-empty-lines": "error"
   },' .eslintrc.json
+npx prisma init
+rm - rf .env
 cd -
-echo '\nPreparing and installing backend addicional dependencies...\n'
-pnpm i @prisma/client argon2 cors dotenv express-rescue joi jsonwebtoken shelljs uuid
-pnpm i -D @types/cors @types/jsonwebtoken @types/shelljs @types/supertest @types/uuid prisma supertest 
+
+echo '\nDeleting .vscode directory...\n'
+echo > .env 'PORT=8585
+# DATABASE_URL="TYPE of database like mysql://USER:PASSWORD@localhost:Where the database is running/NAME of the database to create?schema=public"
+DATABASE_URL="mysql://root:12121212@localhost:3306/morgana_true?schema=public"'
 
 echo '\nDeleting .vscode directory...\n'
 rm -rf .vscode
@@ -1335,6 +1345,10 @@ alias npx-folder="~/npx-scripts/"
 
 alias terminal-visual-configuration="p10k configure"
 alias npm-list="npm list -g --depth 0"
+
+#MORGANA
+alias front="cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/morgana/apps/frontend"
+alias back="cd /Users/guilherme/Desktop/trabalho-e-estudo/portfolio/morgana/apps/backend"
 
 # sequelize
 alias db-create="npx sequelize db:create"
